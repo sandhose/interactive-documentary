@@ -1,0 +1,29 @@
+.button:not(:first-child) {
+  margin-left: 10px;
+}
+
+.button {
+  composes: transition from '../VideoPlyr/styles.css';
+  composes: has-tooltip from '../VideoPlyr/styles.css';
+  border-radius: 3px;
+  padding: 7px;
+  cursor: pointer;
+  position: relative;
+}
+
+.button svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: currentColor;
+}
+
+.button:hover,
+.button:focus {
+  outline: none;
+  background-color: #3498db;
+}
+
+.tooltip {
+  composes: tooltip from '../VideoPlyr/styles.css';
+}
