@@ -5,22 +5,16 @@
  */
 
 import {
-  PLAY_VIDEO,
-  PAUSE_VIDEO,
+  UPDATE_PLAYING,
   UPDATE_PLAYED,
   UPDATE_LOADED,
   UPDATE_DURATION,
 } from './constants';
 
-export function playVideo() {
+export function updatePlaying(playing) {
   return {
-    type: PLAY_VIDEO,
-  };
-}
-
-export function pauseVideo() {
-  return {
-    type: PAUSE_VIDEO,
+    type: UPDATE_PLAYING,
+    playing,
   };
 }
 

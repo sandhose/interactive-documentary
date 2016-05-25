@@ -31,15 +31,16 @@ VideoTimeline.propTypes = {
 
 export default VideoTimeline;
 
-const Mark = ({ time, duration }) => (
+const Mark = ({ time, duration, content }) => (
   <div className={styles.mark} style={{ left: `${time / duration * 100}%` }}>
-    <div className={styles.tooltip}>Blbl</div>
+    <div className={styles.tooltip}>{content}</div>
   </div>
 );
 
 Mark.propTypes = {
   time: React.PropTypes.number.isRequired,
   duration: React.PropTypes.number,
+  content: React.PropTypes.string,
 };
 
 export { Mark };

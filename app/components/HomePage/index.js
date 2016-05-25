@@ -18,9 +18,7 @@ export function HomePage() {
         <header className={styles.header}>
           <h1>Title.</h1>
         </header>
-        <VideoPlyr playing played={38} loaded={93} duration={183}>
-          <Mark time={42} />
-        </VideoPlyr>
+        <Player />
       </div>
     </div>
   );

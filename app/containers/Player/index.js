@@ -9,42 +9,39 @@ import { connect } from 'react-redux';
 
 import { createSelector } from 'reselect';
 import {
-  selectState,
-  selectId,
+  selectPlaying,
   selectPlayed,
   selectLoaded,
   selectDuration,
 } from './selectors';
 
-import Video from '../../components/Video';
-import Timeline from '../Timeline';
+import VideoPlyr from '../../components/VideoPlyr';
 
-import { playVideo, pauseVideo, updatePlayed, updateLoaded, updateDuration } from './actions';
+import { updatePlaying, updatePlayed, updateLoaded, updateDuration } from './actions';
 
 import styles from './styles.css';
 
-export const Player = ({ id, state, played, onPlay, onPause, onPlayedUpdate, onDurationUpdate, onLoadedUpdate }) => (
+export const Player = ({ playing, played, loaded, duration, onPlayingUpdate, onPlayedUpdate, onDurationUpdate, onLoadedUpdate }) => (
   <div className={styles.player}>
-    <Video
-      id={id}
-      state={state}
+    <VideoPlyr
+      playing={playing}
       played={played}
-      onPlay={onPlay}
-      onPause={onPause}
+      loaded={loaded}
+      duration={duration}
+      onPlayingUpdate={onPlayingUpdate}
       onPlayedUpdate={onPlayedUpdate}
       onDurationUpdate={onDurationUpdate}
       onLoadedUpdate={onLoadedUpdate}
     />
-    <Timeline />
   </div>
 );
 
 Player.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  state: React.PropTypes.oneOf(['PLAYING', 'PAUSED']),
+  playing: React.PropTypes.bool.isRequired,
   played: React.PropTypes.number.isRequired,
-  onPlay: React.PropTypes.func.isRequired,
-  onPause: React.PropTypes.func.isRequired,
+  loaded: React.PropTypes.number.isRequired,
+  duration: React.PropTypes.number.isRequired,
+  onPlayingUpdate: React.PropTypes.func.isRequired,
   onPlayedUpdate: React.PropTypes.func.isRequired,
   onLoadedUpdate: React.PropTypes.func.isRequired,
   onDurationUpdate: React.PropTypes.func.isRequired,
@@ -52,8 +49,7 @@ Player.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onPlay: () => dispatch(playVideo()),
-    onPause: () => dispatch(pauseVideo()),
+    onPlayingUpdate: playing => dispatch(updatePlaying(playing)),
     onPlayedUpdate: timestamp => dispatch(updatePlayed(timestamp)),
     onLoadedUpdate: timestamp => dispatch(updateLoaded(timestamp)),
     onDurationUpdate: timestamp => dispatch(updateDuration(timestamp)),
@@ -61,6 +57,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(createSelector(
-  selectState(), selectId(), selectPlayed(), selectLoaded(), selectDuration(),
-  (state, id, played, loaded, duration) => ({ state, id, played, loaded, duration })
+  selectPlaying(), selectPlayed(), selectLoaded(), selectDuration(),
+  (playing, played, loaded, duration) => ({ playing, played, loaded, duration })
 ), mapDispatchToProps)(Player);

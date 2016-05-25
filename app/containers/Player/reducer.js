@@ -6,27 +6,23 @@
 
 import { fromJS } from 'immutable';
 import {
-  PLAY_VIDEO,
-  PAUSE_VIDEO,
+  UPDATE_PLAYING,
   UPDATE_PLAYED,
   UPDATE_LOADED,
   UPDATE_DURATION,
 } from './constants';
 
 const initialState = fromJS({
-  id: 'EjaGktVQdNg',
-  state: 'PAUSED',
+  playing: false,
   played: 0,
   loaded: 0,
-  duration: 0,
+  duration: 100,
 });
 
 function playerReducer(state = initialState, action) {
   switch (action.type) {
-    case PLAY_VIDEO:
-      return state.set('state', 'PLAYING');
-    case PAUSE_VIDEO:
-      return state.set('state', 'PAUSED');
+    case UPDATE_PLAYING:
+      return state.set('playing', action.playing);
     case UPDATE_PLAYED:
       return state.set('played', action.timestamp);
     case UPDATE_LOADED:

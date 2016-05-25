@@ -2,14 +2,9 @@ import { createSelector } from 'reselect';
 
 const selectPlayer = () => state => state.get('player');
 
-const selectState = () => createSelector(
+const selectPlaying = () => createSelector(
   selectPlayer(),
-  playerState => playerState.get('state')
-);
-
-const selectId = () => createSelector(
-  selectPlayer(),
-  playerState => playerState.get('id')
+  playerState => playerState.get('playing')
 );
 
 const selectPlayed = () => createSelector(
@@ -29,8 +24,7 @@ const selectDuration = () => createSelector(
 
 export {
   selectPlayer,
-  selectState,
-  selectId,
+  selectPlaying,
   selectPlayed,
   selectLoaded,
   selectDuration,
