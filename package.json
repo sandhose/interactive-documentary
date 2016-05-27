@@ -149,6 +149,7 @@
     "fontfaceobserver": "^1.7.1",
     "history": "^2.1.0",
     "immutable": "^3.8.1",
+    "marked": "^0.3.5",
     "plyr": "^1.6.12",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",

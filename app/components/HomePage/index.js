@@ -7,6 +7,7 @@
 import React from 'react';
 import Player from '../../containers/Player';
 import CommentsList from '../../containers/CommentsList';
+import classNames from 'classnames';
 
 import styles from './styles.css';
 
@@ -21,7 +22,7 @@ export function HomePage() {
           <Player />
         </div>
       </div>
-      <div className={styles.container}>
+      <div className={classNames(styles.container, styles.comments)}>
         <CommentsList />
       </div>
     </div>

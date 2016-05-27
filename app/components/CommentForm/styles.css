@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  font-family: "Open Sans", sans-serif;
+  margin: 30px 0 30px 50px;
+}
+
+.form {
+  flex: 1 0;
+  width: 400px;
+  padding: 0 30px;
+}
+
+.form h2 {
+  font-size: 1.2em;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  border: solid 1px #CCC;
+  background-color: #fff;
+  padding: 4px 6px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.form button {
+  background-color: #fff;
+  text-transform: uppercase;
+  border: solid 1px #CCC;
+  padding: 6px 12px;
+}
+
+.form button:hover {
+  background-color: #555;
+  color: white;
+}
+
+.preview {
+  flex: 1;
+  padding: 15px 30px;
+  border: solid 1px #CCC;
+  background-color: #fff;
+}
+
+.preview img {
+  max-width: 100%;
+}

@@ -17,7 +17,13 @@ const initialState = List.of(new Comment({
   id: 0,
   brief: 'Lorem ipsum dolor sit amet',
   timestamp: 12,
-  content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet posuere nunc, non cursus mi. Nam ante massa, tristique in urna eu, blandit mollis libero. Integer rutrum nibh eu imperdiet aliquam. Sed in lacus nisi. Aenean sit amet orci vehicula nunc molestie consequat non eu ante. Aenean nec leo pulvinar, viverra turpis sed, tempus lectus. Nulla facilisi.',
+  content: `# Lorem ipsum dolor sit amet
+
+Consectetur **adipiscing** elit. Aenean sit amet posuere nunc, non cursus mi. Nam ante massa, tristique in urna eu, _blandit_ mollis libero. Integer rutrum nibh eu imperdiet aliquam. Sed in lacus nisi. Aenean sit amet orci vehicula nunc molestie consequat non eu ante.
+
+Aenean nec leo pulvinar, viverra turpis sed, tempus lectus. Nulla facilisi.
+
+![Image](/d213dfdded2064061f0f057233a8886b.png)`,
 }), new Comment({
   id: 1,
   brief: 'Lorem ipsum dolor sit amet',

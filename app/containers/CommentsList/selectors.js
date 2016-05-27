@@ -2,11 +2,11 @@ import { createSelector } from 'reselect';
 
 import { selectPlayed } from '../Player/selectors';
 
-const selectComments = () => state => state.get('comments');
+const selectComments = () => state => state.get('comments').sort((a, b) => a.timestamp > b.timestamp);
 
 const selectOpen = () => createSelector(
   selectPlayed(), selectComments(),
-  (played, comments) => comments.reduce((a, b) => (b.timestamp <= played && b.timestamp > played - 5 && (!a || b.timestamp > a.timestamp) ? b : a), null)
+  (played, comments) => comments.findLast(({ timestamp }) => timestamp <= played && timestamp > played - 5)
 );
 
 export {
