@@ -1,13 +1,13 @@
 import Video from '../';
-import Youtube from 'react-youtube';
 
 import expect from 'expect';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
 
 describe('<Video />', () => {
-  it('renders one <Youtube /> component', () => {
-    const wrapper = shallow(<Video />);
-    expect(wrapper.find(Youtube).length).toEqual(1);
+  it('renders children', () => {
+    const children = <div>Bleh.</div>;
+    const rendered = mount(<Video>{children}</Video>);
+    expect(rendered.contains(children)).to.equal(true);
   });
 });

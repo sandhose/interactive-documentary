@@ -1,4 +1,4 @@
-.timeline {
+/* .timeline {
   flex: 1;
   position: relative;
   margin-left: 10px;
@@ -14,7 +14,6 @@
   height: 8px;
   margin: -4px 0 0;
   padding: 0;
-  vertical-align: top;
   appearance: none;
   border: none;
   border-radius: 100px;
@@ -39,9 +38,9 @@
 .loaded {
   composes: progress;
   z-index: 1;
-  color: rgba(255,255,255,.25);
-  background: rgba(255,255,255,.25);
-}
+  color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
+} */
 
 .markers {
   position: absolute;
@@ -62,7 +61,7 @@
   background-color: yellow;
 }
 
-.seek {
+/* .seek {
   display: block;
   z-index: 3;
   position: relative;
@@ -87,20 +86,19 @@
   user-select: none;
 }
 
-
 .seek::-webkit-slider-thumb {
   appearance: none;
   position: relative;
   z-index: 5;
   height: 16px;
   width: 16px;
-  background: #fff;
+  background: #FFF;
   border: 2px solid transparent;
   border-radius: 100%;
-  transition: background .2s ease, border .2s ease, transform .2s ease;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .15), 0 0 0 1px rgba(0, 0, 0, .15);
+  transition: background 0.2s ease, border 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
-}
+} */
 
 .open .bubble {
   opacity: 1;
@@ -108,7 +106,7 @@
 }
 
 .bubble {
-  transition: transform .5s ease, opacity .5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
   position: absolute;
   opacity: 0;
   font-size: 12px;
@@ -117,14 +115,14 @@
   margin: 10px 0 0;
   background-color: white;
   color: black;
-  box-shadow: 0 2px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   padding: 8px 6px;
-  transform: scale(1, .8) translate(0, -5px);
+  transform: scale(1, 0.8) translate(0, -5px);
   transform-origin: 50% 0%;
   text-align: justify;
 }
 
-.bubble:after {
+.bubble::after {
   position: absolute;
   content: '';
   display: block;
@@ -139,7 +137,7 @@
 }
 
 .wrapper {
-  transition: width .5s ease;
+  transition: width 0.5s ease;
   width: 50px;
   overflow: hidden;
 }

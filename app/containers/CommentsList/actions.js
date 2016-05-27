@@ -19,10 +19,10 @@ export function addComment({ brief, content, timestamp }) {
   };
 }
 
-export function deleteComment({ id }) {
+export function deleteComment(id) {
   return {
     type: DELETE_COMMENT,
-    id,
+    id: id.id || id,
   };
 }
 

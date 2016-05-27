@@ -1,5 +1,5 @@
 .animateOpen {
-  transition: color .5s ease;
+  transition: color 0.5s ease;
 }
 
 .open .animateOpen {
@@ -9,7 +9,7 @@
 .comment {
   display: flex;
   align-items: flex-start;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 20px 0 10px;
 }
 

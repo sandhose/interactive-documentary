@@ -1,18 +1,24 @@
 import expect from 'expect';
 import {
-  defaultAction,
+  addComment,
+
+//  editComment,
+//  deleteComment,
 } from '../actions';
 import {
-  DEFAULT_ACTION,
+  ADD_COMMENT,
+
+//  DELETE_COMMENT,
+//  EDIT_COMMENT,
 } from '../constants';
 
 describe('CommentsList actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('Add comment action', () => {
+    it('has a type of ADD_COMMENT', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: ADD_COMMENT,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(addComment({})).toEqual(expected);
     });
   });
 });

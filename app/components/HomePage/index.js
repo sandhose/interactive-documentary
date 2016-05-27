@@ -7,13 +7,12 @@
 import React from 'react';
 import Player from '../../containers/Player';
 import CommentsList from '../../containers/CommentsList';
-import classNames from 'classnames';
 
 import styles from './styles.css';
 
 export function HomePage() {
   return (
-    <div>
+    <div className={styles.main}>
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <header className={styles.header}>
@@ -22,8 +21,13 @@ export function HomePage() {
           <Player />
         </div>
       </div>
-      <div className={classNames(styles.container, styles.comments)}>
+      <div className={styles.container}>
         <CommentsList />
+      </div>
+      <div className={styles.footer}>
+        <footer className={styles.container}>
+          Lorem ipsum dolor sit amet
+        </footer>
       </div>
     </div>
   );

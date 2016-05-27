@@ -1,6 +1,6 @@
 .wrapper {
   display: flex;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 30px 0 30px 50px;
 }
 
@@ -20,14 +20,14 @@
 .form textarea {
   width: 100%;
   border: solid 1px #CCC;
-  background-color: #fff;
+  background-color: #FFF;
   padding: 4px 6px;
   display: block;
   margin-bottom: 4px;
 }
 
 .form button {
-  background-color: #fff;
+  background-color: #FFF;
   text-transform: uppercase;
   border: solid 1px #CCC;
   padding: 6px 12px;
@@ -42,9 +42,10 @@
   flex: 1;
   padding: 15px 30px;
   border: solid 1px #CCC;
-  background-color: #fff;
+  background-color: #FFF;
 }
 
 .preview img {
   max-width: 100%;
 }
+

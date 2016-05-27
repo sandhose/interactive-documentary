@@ -1,4 +1,4 @@
-import {
+/* import {
   selectCommentsList,
 } from '../selectors';
 import { fromJS } from 'immutable';
@@ -8,4 +8,4 @@ const selector = selectCommentsList();
 
 describe('selectCommentsList', () => {
 
-});
+}); */
