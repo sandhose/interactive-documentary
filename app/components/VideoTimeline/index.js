@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import classNames from 'classnames';
 
 import styles from './styles.css';
 
@@ -31,16 +32,21 @@ VideoTimeline.propTypes = {
 
 export default VideoTimeline;
 
-const Mark = ({ time, duration, content }) => (
-  <div className={styles.mark} style={{ left: `${time / duration * 100}%` }}>
-    <div className={styles.tooltip}>{content}</div>
+const Mark = ({ time, duration, children, open }) => (
+  <div className={classNames(styles.mark, { [styles.open]: open })} style={{ left: `${time / duration * 100}%` }}>
+    <div className={styles.bubble}>
+      <div className={styles.wrapper}>
+        <div className={styles.inner}>{children}</div>
+      </div>
+    </div>
   </div>
 );
 
 Mark.propTypes = {
   time: React.PropTypes.number.isRequired,
   duration: React.PropTypes.number,
-  content: React.PropTypes.string,
+  open: React.PropTypes.bool,
+  children: React.PropTypes.node,
 };
 
 export { Mark };

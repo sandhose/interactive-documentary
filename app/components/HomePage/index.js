@@ -6,19 +6,23 @@
 
 import React from 'react';
 import Player from '../../containers/Player';
-import VideoPlyr from '../VideoPlyr';
-import { Mark } from '../VideoTimeline';
+import CommentsList from '../../containers/CommentsList';
 
 import styles from './styles.css';
 
 export function HomePage() {
   return (
-    <div className={styles.wrapper}>
+    <div>
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <header className={styles.header}>
+            <h1>Title.</h1>
+          </header>
+          <Player />
+        </div>
+      </div>
       <div className={styles.container}>
-        <header className={styles.header}>
-          <h1>Title.</h1>
-        </header>
-        <Player />
+        <CommentsList />
       </div>
     </div>
   );

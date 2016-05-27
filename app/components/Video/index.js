@@ -5,108 +5,80 @@
 */
 
 import React from 'react';
-import Youtube from 'react-youtube';
 
 class Video extends React.Component {
-  static propTypes = {
-    id: React.PropTypes.string.isRequired,
-    played: React.PropTypes.number.isRequired,
-    state: React.PropTypes.oneOf(['PLAYING', 'PAUSED']),
-    onPlay: React.PropTypes.func,
-    onPause: React.PropTypes.func,
-    onPlayedUpdate: React.PropTypes.func,
-    onDurationUpdate: React.PropTypes.func,
-    onLoadedUpdate: React.PropTypes.func,
-  };
-
-  static defaultProps = {
-    onPlay: () => null,
-    onPause: () => null,
-    onPlayedUpdate: () => null,
-    onDurationUpdate: () => null,
-    onLoadedUpdate: () => null,
-  };
-
-  constructor(props) {
-    super(props);
-    this.player = null;
-    this.lastPlayed = 0;
-    this.lastLoaded = 0;
+  constructor() {
+    super();
+    this.lastSent = {};
   }
 
-  componentWillReceiveProps({ played, state }) {
-    if (this.player) {
-      this.updatePlayer({ played, state });
+  componentDidMount() {
+    this.video = this.refs.video;
+
+    this.on('play pause', this.update('playing', v => !v.paused));
+    this.on('timeupdate seeking', this.update('played', v => v.currentTime));
+    this.on('playing progress', this.update('loaded', v => (v.length > 0 ? v.buffered.end(0) : undefined)));
+    this.on('durationchange loadedmetadata', this.update('duration', v => v.duration));
+    this.on('ended', ({ target }) => {
+      this.update('played', target.duration)();
+      this.update('playing', false)();
+    });
+  }
+
+  componentWillReceiveProps({ playing, played }) {
+    if (this.video) {
+      if (Math.abs(this.lastSent.played - played) > 1) this.video.currentTime = played;
+      if (playing !== this.lastSent.playing) {
+        if (playing) this.video.play();
+        else this.video.pause();
+      }
     }
   }
 
-  onReady(event) {
-    this.player = event.target;
-    this.updateInterval = setInterval(::this.updatePlayed, 500);
-    this.updatePlayed();
-    this.updatePlayer(this.props);
-    this.props.onDurationUpdate(this.player.getDuration());
+  update(key, map) {
+    return (givenVal) => {
+      let val;
+      if (map === undefined && givenVal !== undefined) val = givenVal;
+      else if (typeof map === 'function') val = map(this.video);
+      else val = map;
+
+      if (val !== undefined && val !== this.lastSent[key]) {
+        const handler = this.props[`on${key.charAt(0).toUpperCase()}${key.slice(1)}Update`];
+        this.lastSent[key] = val;
+        if (handler) handler(val);
+      }
+    };
   }
 
-  onPlay(event) {
-    this.props.onPlay(event);
-  }
-
-  onPause(event) {
-    this.props.onPause(event);
-  }
-
-  getPlayed() {
-    return this.player.getCurrentTime() || 0;
-  }
-
-  getLoaded() {
-    return this.player.getVideoLoadedFraction() * this.player.getDuration() || 0;
-  }
-
-  updatePlayed() {
-    const loaded = this.getLoaded();
-    const played = this.getPlayed();
-
-    if (Math.abs(loaded - this.lastLoaded) > 0.5) {
-      this.props.onLoadedUpdate(loaded);
-    }
-
-    if (Math.abs(played !== this.lastPlayed) > 0.5) {
-      this.props.onPlayedUpdate(played);
-    }
-
-    this.lastPlayed = played;
-    this.lastLoaded = loaded;
-  }
-
-  updatePlayer({ played, state }) {
-    if (state === 'PLAYING' && this.player.getPlayerState() !== 1) this.player.playVideo();
-    else if (state === 'PAUSED' && this.player.getPlayerState() === 1) this.player.pauseVideo();
-
-    if (this.player.getPlayerState() < 3 && Math.abs(this.lastPlayed - played) > 2) {
-      this.player.seekTo(played);
-      this.updatePlayed();
-    }
+  on(events, listener) {
+    events.split(' ').forEach(event => this.video.addEventListener(event, listener));
   }
 
   render() {
-    const opts = {
-      playerVars: {
-        controls: 0,
-      },
-    };
+    const { children, ...props } = this.props;
+    delete props.playing;
+    delete props.played;
+    delete props.onPlayingUpdate;
+    delete props.onPlayedUpdate;
+    delete props.onDurationUpdate;
+    delete props.onLoadedUpdate;
 
     return (
-      <Youtube
-        videoId={this.props.id}
-        opts={opts}
-        onPlay={::this.onPlay}
-        onPause={::this.onPause}
-        onReady={::this.onReady}
-      />
+      <video ref="video" {...props}>
+        {children}
+      </video>
     );
   }
 }
+
+Video.propTypes = {
+  children: React.PropTypes.node,
+  playing: React.PropTypes.bool,
+  played: React.PropTypes.number.isRequired,
+  onDurationUpdate: React.PropTypes.func,
+  onLoadedUpdate: React.PropTypes.func,
+  onPlayedUpdate: React.PropTypes.func,
+  onPlayingUpdate: React.PropTypes.func,
+};
 
 export default Video;
