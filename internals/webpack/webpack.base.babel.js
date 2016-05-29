@@ -32,7 +32,7 @@ module.exports = (options) => ({
       include: /node_modules/,
       loaders: ['style-loader', 'css-loader'],
     }, {
-      test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
+      test: /\.jpe?g$|\.gif$|\.png$/i,
       loader: 'url-loader?limit=10000',
     }, {
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -49,6 +49,9 @@ module.exports = (options) => ({
     }, {
       test: /\.html$/,
       loader: 'html-loader',
+    }, {
+      test: /\.svg$/,
+      loader: 'babel!svg-react',
     }, {
       test: /\.json$/,
       loader: 'json-loader',

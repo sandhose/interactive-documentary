@@ -11,6 +11,8 @@ import {
   EDIT_COMMENT,
 } from './constants';
 
+import poster from '../../video/poster.png';
+
 const Comment = new Record({ id: -1, brief: '', timestamp: 0, content: '' }, 'Comment');
 
 const initialState = List.of(new Comment({
@@ -23,7 +25,7 @@ Consectetur **adipiscing** elit. Aenean sit amet posuere nunc, non cursus mi. Na
 
 Aenean nec leo pulvinar, viverra turpis sed, tempus lectus. Nulla facilisi.
 
-![Image](/d213dfdded2064061f0f057233a8886b.png)`,
+![Image](${poster})`,
 }), new Comment({
   id: 1,
   brief: 'Lorem ipsum dolor sit amet',
