@@ -11,7 +11,7 @@ import { List } from 'immutable';
 import { createSelector } from 'reselect';
 import {
   selectPlayed,
-} from '../Player/selectors';
+} from 'containers/Player/selectors';
 import {
   selectComments,
   selectOpen,
@@ -22,8 +22,8 @@ import {
   editComment,
 } from './actions';
 
-import Comment from '../../components/Comment';
-import CommentForm from '../../components/CommentForm';
+import Comment from 'components/Comment';
+import CommentForm from 'components/CommentForm';
 import { Comment as CommentRecord } from './reducer';
 
 import styles from './styles.css';
@@ -43,13 +43,13 @@ CommentsList.propTypes = {
   played: React.PropTypes.number.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    add: comment => dispatch(addComment(comment)),
-    edit: (id, comment) => dispatch(editComment(id, comment)),
-    remove: id => () => dispatch(deleteComment(id)),
-  };
-}
+export { CommentsList };
+
+const mapDispatchToProps = dispatch => ({
+  add: comment => dispatch(addComment(comment)),
+  edit: (id, comment) => dispatch(editComment(id, comment)),
+  remove: id => () => dispatch(deleteComment(id)),
+});
 
 export default connect(createSelector(
   selectComments(), selectOpen(), selectPlayed(),
