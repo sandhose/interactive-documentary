@@ -22,12 +22,7 @@ const formatTime = time => `${pad(time / 60)}:${pad(time % 60)}`;
 
 const VideoPlyr = ({ playing, loaded, played, duration, children, setPlaying, updatePlayed, updateDuration, updateLoaded }) => (
   <div
-    className={classNames(
-      'plyr', 'plyr--video', {
-        'plyr--playing': playing,
-        'plyr--stopped': !playing,
-      }
-    )}
+    className={classNames('plyr', 'plyr--video', playing ? 'plyr--playing' : 'plyr--stopped')}
   >
     <PlyrSvg className={styles.hidden} />
     <div className="plyr__video-wrapper">
@@ -60,6 +55,17 @@ VideoPlyr.propTypes = {
   updatePlayed: React.PropTypes.func,
   updateDuration: React.PropTypes.func,
   updateLoaded: React.PropTypes.func,
+};
+
+VideoPlyr.defaultProps = {
+  playing: false,
+  loaded: 0,
+  played: 0,
+  duration: 0,
+  setPlaying: _ => _,
+  updatePlayed: _ => _,
+  updateDuration: _ => _,
+  updateLoaded: _ => _,
 };
 
 export default VideoPlyr;
