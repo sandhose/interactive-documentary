@@ -12,56 +12,50 @@ class Video extends React.Component {
     this.lastSent = {};
   }
 
-  componentDidMount() {
-    this.video = this.refs.video;
-
-    this.on('play pause', this.update('playing', v => !v.paused));
-    this.on('timeupdate seeking', this.update('played', v => v.currentTime));
-    this.on('playing progress', this.update('loaded', v => (v.length > 0 ? v.buffered.end(0) : undefined)));
-    this.on('durationchange loadedmetadata', this.update('duration', v => v.duration));
-    this.on('ended', ({ target }) => {
-      this.update('played', target.duration)();
-      this.update('playing', false)();
-    });
-  }
-
   componentWillReceiveProps({ playing, played }) {
-    if (this.video) {
-      if (Math.abs(this.lastSent.played - played) > 1) this.video.currentTime = played;
+    if (this.refs.video) {
+      if (this.lastSent.played === undefined
+      || Math.abs(this.lastSent.played - played) > 1) this.refs.video.currentTime = played;
+
       if (playing !== this.lastSent.playing) {
-        if (playing) this.video.play();
-        else this.video.pause();
+        if (playing) this.refs.video.play();
+        else this.refs.video.pause();
       }
     }
   }
 
-  update(key, map) {
-    return (givenVal) => {
-      let val;
-      if (map === undefined && givenVal !== undefined) val = givenVal;
-      else if (typeof map === 'function') val = map(this.video);
-      else val = map;
+  render() {
+    const {
+      children,
+      ...props,
+    } = this.props;
 
-      if (val !== undefined && val !== this.lastSent[key]) {
+    ['onPlayingUpdate', 'onPlayedUpdate', 'onDurationUpdate', 'onLoadedUpdate', 'playing', 'played'].forEach(p => delete props[p]);
+
+    const bindUpdate = (key, boundValue) => value => {
+      let effectiveValue;
+      if (typeof boundValue === 'function') effectiveValue = boundValue(value);
+      else if (boundValue !== undefined) effectiveValue = boundValue;
+      else effectiveValue = value;
+      if (this.lastSent[key] === undefined || this.lastSent[key] !== effectiveValue) {
         const handler = this.props[`on${key.charAt(0).toUpperCase()}${key.slice(1)}Update`];
-        this.lastSent[key] = val;
-        if (handler) handler(val);
+        this.lastSent[key] = effectiveValue;
+        if (handler) handler(effectiveValue);
       }
     };
-  }
 
-  on(events, listener) {
-    events.split(' ').forEach(event => this.video.addEventListener(event, listener));
-  }
-
-  render() {
-    const { children, ...props } = this.props;
-    delete props.playing;
-    delete props.played;
-    delete props.onPlayingUpdate;
-    delete props.onPlayedUpdate;
-    delete props.onDurationUpdate;
-    delete props.onLoadedUpdate;
+    Object.assign(props, {
+      onPlay: bindUpdate('playing', true),
+      onPause: bindUpdate('playing', false),
+      onTimeUpdate: bindUpdate('played', e => e.target.currentTime),
+      onSeeking: bindUpdate('played', e => e.target.currentTime),
+      onDurationChange: bindUpdate('duration', e => e.target.duration),
+      onLoadedMetadata: bindUpdate('duration', e => e.target.duration),
+      onEnded: e => {
+        bindUpdate('playing')(false);
+        bindUpdate('played')(e.target.duration);
+      },
+    });
 
     return (
       <video ref="video" {...props}>
