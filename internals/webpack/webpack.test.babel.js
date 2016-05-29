@@ -9,6 +9,11 @@ const modules = [
   'node_modules',
 ];
 
+// PostCSS plugins
+const cssnext = require('postcss-cssnext');
+const postcssFocus = require('postcss-focus');
+const postcssReporter = require('postcss-reporter');
+
 module.exports = {
   devtool: 'inline-source-map',
   isparta: {
@@ -31,13 +36,20 @@ module.exports = {
     ],
     loaders: [
       { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.css$/, loader: 'null-loader' },
 
       // sinon.js--aliased for enzyme--expects/requires global vars.
       // imports-loader allows for global vars to be injected into the module.
       // See https://github.com/webpack/webpack/issues/304
       { test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
         loader: 'imports?define=>false,require=>false',
+      },
+      { test: /\.css$/,
+        exclude: /node_modules/,
+        loader: 'style-loader!css-loader?localIdentName=[local]__[path][name]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
+      },
+      { test: /\.css$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader'],
       },
       { test: /\.js$/,
         loader: 'babel',
@@ -51,6 +63,17 @@ module.exports = {
       },
     ],
   },
+
+  // Process the CSS with PostCSS
+  postcssPlugins: [
+    postcssFocus(), // Add a :focus to every :hover
+    cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
+      browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
+    }),
+    postcssReporter({ // Posts messages from plugins to the terminal
+      clearMessages: true,
+    }),
+  ],
 
   plugins: [
 

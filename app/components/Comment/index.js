@@ -14,11 +14,11 @@ const pad = number => (number >= 10 ? '' : '0') + Math.floor(number);
 const formatTime = time => `${pad(time / 60)}:${pad(time % 60)}`;
 
 const Comment = ({ content, timestamp, open, onDelete }) => (
-  <div className={classNames(styles.comment, { [styles.open]: open })}>
-    <div className={styles.timestamp}>{formatTime(timestamp)}</div>
-    <div className={styles.content} dangerouslySetInnerHTML={{ __html: marked(content) }}></div>
+  <article className={classNames(styles.comment, { [styles.open]: open })}>
+    <time className={styles.timestamp}>{formatTime(timestamp)}</time>
+    <main className={styles.content} dangerouslySetInnerHTML={{ __html: marked(content) }}></main>
     <button className={styles.delete} onClick={onDelete}>×</button>
-  </div>
+  </article>
 );
 
 Comment.propTypes = {
