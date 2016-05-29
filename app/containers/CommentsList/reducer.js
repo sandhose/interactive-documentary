@@ -44,20 +44,26 @@ function commentsListReducer(state = initialState, { type, ...attrs }) {
   switch (type) {
     case ADD_COMMENT:
       return state.push(new Comment({
-        id: state.reduce((a, b) => Math.max(a.id, b.id), -1) + 1,
+        id: state.reduce((a, b) => Math.max(a, b.id), -1) + 1,
         ...attrs,
       }));
-    case DELETE_COMMENT:
+
+    case DELETE_COMMENT: {
+      const index = state.findIndex(byId(attrs.id));
+      if (index === -1) return state;
       return state.delete(state.findIndex(byId(attrs.id)));
-    case EDIT_COMMENT:
-      return state.update(
-        state.findIndex(byId(attrs.id)),
-        comment => comment.merge(attrs),
-      );
+    }
+
+    case EDIT_COMMENT: {
+      const index = state.findIndex(byId(attrs.id));
+      if (index === -1) return state;
+      return state.update(index, comment => comment.merge(attrs));
+    }
+
     default:
       return state;
   }
 }
 
 export default commentsListReducer;
-export { Comment };
+export { Comment, initialState };
