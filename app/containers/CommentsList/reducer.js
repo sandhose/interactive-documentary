@@ -44,20 +44,15 @@ function commentsListReducer(state = initialState, { type, ...attrs }) {
   switch (type) {
     case ADD_COMMENT:
       return state.push(new Comment({
-        id: state.reduce((a, b) => Math.max(a, b.id), -1) + 1,
         ...attrs,
+        id: state.reduce((a, b) => Math.max(a, b.id), -1) + 1,
       }));
 
-    case DELETE_COMMENT: {
-      const index = state.findIndex(byId(attrs.id));
-      if (index === -1) return state;
-      return state.delete(state.findIndex(byId(attrs.id)));
-    }
+    case DELETE_COMMENT:
+      return state.filterNot(byId(attrs.id));
 
     case EDIT_COMMENT: {
-      const index = state.findIndex(byId(attrs.id));
-      if (index === -1) return state;
-      return state.update(index, comment => comment.merge(attrs));
+      return state.map(comment => (comment.id === attrs.id ? comment.merge(attrs) : comment));
     }
 
     default:
