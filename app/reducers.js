@@ -39,13 +39,11 @@ function routeReducer(state = routeInitialState, action) {
  * Creates the main reducer with the asynchronously loaded ones
  */
 import playerReducer from 'containers/Player/reducer';
-import timelineReducer from 'containers/Timeline/reducer';
 import commentsListReducer from 'containers/CommentsList/reducer';
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     player: playerReducer,
-    timeline: timelineReducer,
     comments: commentsListReducer,
     ...asyncReducers,
   });
