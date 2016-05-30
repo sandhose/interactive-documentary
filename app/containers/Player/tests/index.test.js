@@ -1,6 +1,6 @@
 import { Player } from '../index';
 import VideoPlyr from 'components/VideoPlyr';
-import { Mark } from 'components/VideoTimeline';
+import { Mark } from 'components/VideoTimeline';
 import { Comment as CommentRecord } from 'containers/CommentsList/reducer';
 
 import expect from 'expect';

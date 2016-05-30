@@ -11,7 +11,7 @@
   "scripts": {
     "prebuild": "npm run test && npm run build:clean",
     "build:clean": "rimraf ./build/*",
-    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p",
+    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color --progress ",
     "analyze": "node ./internals/scripts/analyze.js",
     "start": "npm run start:tunnel",
     "start:tunnel": "cross-env NODE_ENV=development node server",
@@ -202,6 +202,7 @@
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.16.0",
     "imports-loader": "^0.6.5",
+    "inline-loader": "^0.1.0",
     "ip": "^1.1.2",
     "isparta": "^4.0.0",
     "isparta-loader": "^2.0.0",

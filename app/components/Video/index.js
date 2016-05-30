@@ -12,6 +12,10 @@ class Video extends React.Component {
     this.lastSent = {};
   }
 
+  componentDidMount() {
+    this.refs.video.load();
+  }
+
   componentWillReceiveProps({ playing, played }) {
     if (this.refs.video) {
       if (this.lastSent.played === undefined
@@ -44,11 +48,17 @@ class Video extends React.Component {
       }
     };
 
+    const updateTimes = e => {
+      if (e.target.buffered && e.target.buffered.length > 0) bindUpdate('loaded')(e.target.buffered.end(0));
+      bindUpdate('played')(e.target.currentTime);
+    };
+
     Object.assign(props, {
       onPlay: bindUpdate('playing', true),
       onPause: bindUpdate('playing', false),
-      onTimeUpdate: bindUpdate('played', e => e.target.currentTime),
-      onSeeking: bindUpdate('played', e => e.target.currentTime),
+      onTimeUpdate: updateTimes,
+      onSeeking: updateTimes,
+      onProgress: updateTimes,
       onDurationChange: bindUpdate('duration', e => e.target.duration),
       onLoadedMetadata: bindUpdate('duration', e => e.target.duration),
       onEnded: e => {

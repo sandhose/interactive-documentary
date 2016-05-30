@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import Player from '../../containers/Player';
-import CommentsList from '../../containers/CommentsList';
+import Player from 'containers/Player';
+import CommentsList from 'containers/CommentsList';
 
 import styles from './styles.css';
 

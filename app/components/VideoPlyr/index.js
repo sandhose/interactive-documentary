@@ -6,16 +6,15 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import Button from '../Button';
-import Video from '../Video';
-import VideoTimeline, { Mark } from '../VideoTimeline';
+import Button from 'components/Button';
+import Video from 'components/Video';
+import VideoTimeline, { Mark } from 'components/VideoTimeline';
 
-import styles from './styles.css';
-import 'style-loader!plyr/dist/plyr.css';
-import PlyrSvg from '!!babel!svg-react!plyr/dist/plyr.svg';
+import 'plyr/dist/plyr.css';
+import 'plyr/dist/plyr.svg';
 
-import poster from '../../video/poster.png';
-import videoMP4 from 'url-loader!../../video/big-buck-bunny-240p.mp4';
+import poster from 'video/poster.png';
+import videoMP4 from 'video/big-buck-bunny-240p.webm';
 
 const pad = number => (number >= 10 ? '' : '0') + Math.floor(number);
 const formatTime = time => `${pad(time / 60)}:${pad(time % 60)}`;
@@ -24,7 +23,6 @@ const VideoPlyr = ({ playing, loaded, played, duration, children, setPlaying, up
   <div
     className={classNames('plyr', 'plyr--video', playing ? 'plyr--playing' : 'plyr--stopped')}
   >
-    <PlyrSvg className={styles.hidden} />
     <div className="plyr__video-wrapper">
       <Video poster={poster} played={played} playing={playing} onPlayingUpdate={setPlaying} onPlayedUpdate={updatePlayed} onDurationUpdate={updateDuration} onLoadedUpdate={updateLoaded}>
         <source src={videoMP4} type="video/mp4" />

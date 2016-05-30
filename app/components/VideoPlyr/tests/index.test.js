@@ -1,6 +1,6 @@
 import VideoPlyr from '../';
-import Video from '../../Video';
-import VideoTimeline, { Mark } from '../../VideoTimeline';
+import Video from 'components/Video';
+import VideoTimeline, { Mark } from 'components/VideoTimeline';
 
 import expect from 'expect';
 import { shallow } from 'enzyme';

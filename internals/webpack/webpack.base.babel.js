@@ -44,6 +44,9 @@ module.exports = (options) => ({
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file?name=fonts/[name].[hash].[ext]&mimetype=application/octet-stream',
     }, {
+      test: /\.(mp4|ogv|webm)$/,
+      loader: 'file?name=video/[name].[hash].[ext]',
+    }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file?name=fonts/[name].[hash].[ext]',
     }, {
@@ -51,7 +54,7 @@ module.exports = (options) => ({
       loader: 'html-loader',
     }, {
       test: /\.svg$/,
-      loader: 'babel!svg-react',
+      loader: 'inline',
     }, {
       test: /\.json$/,
       loader: 'json-loader',
