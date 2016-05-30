@@ -1,47 +1,56 @@
 import expect from 'expect';
 import {
-  playVideo,
-  pauseVideo,
+  updatePlaying,
   updateLoaded,
   updatePlayed,
   updateDuration,
 } from '../actions';
 import {
-  PLAY_VIDEO,
-  PAUSE_VIDEO,
+  UPDATE_PLAYING,
   UPDATE_PLAYED,
   UPDATE_LOADED,
   UPDATE_DURATION,
 } from '../constants';
 
 describe('Player actions', () => {
-  describe('Play Action', () => {
-    it('has a type of PLAY_VIDEO', () => {
-      expect(playVideo()).toEqual({ type: PLAY_VIDEO });
+  describe('Update playing Action', () => {
+    it('has a type of UPDATE_PLAYING', () => {
+      expect(updatePlaying().type).toEqual(UPDATE_PLAYING);
     });
-  });
 
-  describe('Pause Action', () => {
-    it('has a type of PAUSE_VIDEO', () => {
-      expect(pauseVideo()).toEqual({ type: PAUSE_VIDEO });
+    it('should have a playing prop', () => {
+      expect(updatePlaying(true).playing).toEqual(true);
+      expect(updatePlaying(false).playing).toEqual(false);
     });
   });
 
   describe('Update played Action', () => {
-    it('has a type of UPDATE_PLAYED with timestamp', () => {
-      expect(updatePlayed(42)).toEqual({ type: UPDATE_PLAYED, timestamp: 42 });
+    it('has a type of UPDATE_PLAYED', () => {
+      expect(updatePlayed().type).toEqual(UPDATE_PLAYED);
+    });
+
+    it('should have a timestamp prop', () => {
+      expect(updatePlayed(42).timestamp).toEqual(42);
     });
   });
 
   describe('Update loaded Action', () => {
-    it('has a type of UPDATE_LOADED with timestamp', () => {
-      expect(updateLoaded(42)).toEqual({ type: UPDATE_LOADED, timestamp: 42 });
+    it('has a type of UPDATE_LOADED', () => {
+      expect(updateLoaded().type).toEqual(UPDATE_LOADED);
+    });
+
+    it('should have a timestamp prop', () => {
+      expect(updateLoaded(42).timestamp).toEqual(42);
     });
   });
 
   describe('Update duration Action', () => {
-    it('has a type of UPDATE_DURATION with timestamp', () => {
-      expect(updateDuration(42)).toEqual({ type: UPDATE_DURATION, timestamp: 42 });
+    it('has a type of UPDATE_DURATION', () => {
+      expect(updateDuration().type).toEqual(UPDATE_DURATION);
+    });
+
+    it('should have a timestamp prop', () => {
+      expect(updateDuration(42).timestamp).toEqual(42);
     });
   });
 });
