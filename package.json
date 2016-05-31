@@ -1,12 +1,12 @@
 {
-  "name": "react-boilerplate",
+  "name": "interactive-documentary",
   "version": "3.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "description": "Interactive video documentary made with react and redux",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mxstbr/react-boilerplate.git"
+    "url": "git://github.com/sandhose/interactive-documentary.git"
   },
-  "author": "Max Stoiber",
+  "author": "Quentin Gliech",
   "license": "MIT",
   "scripts": {
     "prebuild": "npm run test && npm run build:clean",
